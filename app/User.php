@@ -2,13 +2,16 @@
 
 namespace App;
 
+use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +20,7 @@ class User extends Authenticatable
      */
     protected $table ="users";	
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'users_type_id' , 'campus_id' 
     ];
 
     /**
@@ -37,4 +40,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    #User tem um userType
+    public function userType(){
+        return $this->belongsTo(UserType::class);
+    }
+    public function institution(){
+        return $this->belongsTo(Institution::class);
+    }
+
+    
 }
