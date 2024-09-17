@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TipoUsuarioController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +28,7 @@ use Illuminate\View\View;
  */
 Route::middleware(['auth'])->group(function () {
     
-    Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard')->middleware('auth');
+    
     
     Route::group(['prefix' => 'email'], function(){
         Route::get('inbox', function () { return view('pages.email.inbox'); });
@@ -124,6 +126,8 @@ Route::middleware(['auth'])->group(function () {
     // 404 for undefined routes
 
 });
+
+Route::get('/inicio', [UserController::class, 'index'])->name('inicio');
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware('guest');
 Route::get('/register', [AuthController::class, 'register'])->name('register')->middleware('guest');
 Route::post('/login', [AuthController::class,'login'])->middleware('guest');
@@ -133,4 +137,8 @@ Route::post('/logout', function () {
     return redirect('/login');
 })->name('logout');
 
- //
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+    Route::get('/tipo_usuario', [TipoUsuarioController::class, 'index'])->name('tipo_usuario.index');
+});
