@@ -141,4 +141,5 @@ Route::post('/logout', function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
     Route::get('/tipo_usuario', [TipoUsuarioController::class, 'index'])->name('tipo_usuario.index');
+    Route::get('/usuario', [UserController::class, 'index'])->name('usuario.index');
 });

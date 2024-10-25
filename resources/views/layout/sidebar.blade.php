@@ -33,13 +33,10 @@
         <div class="collapse {{ show_class(['usuario/*']) }}" id="email">
           <ul class="nav sub-menu">
             <li class="nav-item">
-              <a href="{{ url('/email/inbox') }}" class="nav-link {{ active_class(['email/inbox']) }}">Inbox</a>
+              <a href="{{ url('/usuario') }}" class="nav-link {{ active_class(['/usuario']) }}">Listar Todos</a>
             </li>
             <li class="nav-item">
-              <a href="{{ url('/email/read') }}" class="nav-link {{ active_class(['email/read']) }}">Read</a>
-            </li>
-            <li class="nav-item">
-              <a href="{{ url('/email/compose') }}" class="nav-link {{ active_class(['email/compose']) }}">Compose</a>
+              <a href="{{ url('/email/read') }}" class="nav-link {{ active_class(['email/read']) }}">Reportes</a>
             </li>
           </ul>
         </div>
@@ -64,13 +61,10 @@
       </li>
       <li class="nav-item {{ active_class(['usuario']) }}">
         <a href="{{ route('tipo_usuario.index') }}" class="nav-link">
-          <i class="link-icon" data-feather="chevrons-right"></i>
+          <i class="link-icon" data-feath*er="chevrons-right"></i>
           <span class="link-title">Estado</span>
         </a>
       </li>
-      
-      
-      
     </ul>
   </div>
 </nav>
