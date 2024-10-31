@@ -36,7 +36,20 @@ class TipoUsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:users_type,name,except,id'
+            // Adicione mais campos conforme necessário
+        ]);
+        $uppercaseName = strtoupper($request['name']);
+        
+        if(UserType::create(
+            ['name' => $uppercaseName]
+        )){
+            return redirect()->route('tipo_usuario.index')->with('success', 'Tipo Usuário Cadastrado com Sucesso');
+        }else{
+            return redirect()->route('tipo_usuario.index')->with('error', 'Erro no cadastro de tipo usuário');
+        }
+
     }
 
     /**

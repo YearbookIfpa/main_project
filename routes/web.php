@@ -40,7 +40,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('chat', function () { return view('pages.apps.chat'); });
         Route::get('calendar', function () { return view('pages.apps.calendar'); });
     });
-
     Route::group(['prefix' => 'ui-components'], function(){
         Route::get('accordion', function () { return view('pages.ui-components.accordion'); });
         Route::get('alerts', function () { return view('pages.ui-components.alerts'); });
@@ -66,7 +65,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('tabs', function () { return view('pages.ui-components.tabs'); });
         Route::get('tooltips', function () { return view('pages.ui-components.tooltips'); });
     });
-
     Route::group(['prefix' => 'advanced-ui'], function(){
         Route::get('cropper', function () { return view('pages.advanced-ui.cropper'); });
         Route::get('owl-carousel', function () { return view('pages.advanced-ui.owl-carousel'); });
@@ -138,8 +136,17 @@ Route::post('/logout', function () {
 })->name('logout');
 
 
+
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+    Route::get('/', function () {
+        return redirect('/dashboard');
+    })->name('inicio');
     Route::get('/tipo_usuario', [TipoUsuarioController::class, 'index'])->name('tipo_usuario.index');
+    Route::get('/tipo_usuario/{id}/show', [TipoUsuarioController::class, 'show'])->name('tipo_usuario.show');
+    Route::get('/tipo_usuario/{id}/edit', [TipoUsuarioController::class, 'edit'])->name('tipo_usuario.edit');
+    Route::get('/tipo_usuario/{id}/destroy', [TipoUsuarioController::class, 'destroy'])->name('tipo_usuario.destroy');
+    Route::post('/tipo_usuario/{id}/update', [TipoUsuarioController::class, 'update'])->name('tipo_usuario.update');
+    Route::post('/tipo_usuario/store', [TipoUsuarioController::class, 'store'])->name('tipo_usuario.store');
     Route::get('/usuario', [UserController::class, 'index'])->name('usuario.index');
 });
