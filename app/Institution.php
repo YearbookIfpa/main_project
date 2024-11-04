@@ -16,6 +16,15 @@ class Institution extends Model
     
     
     public function campus(){
-        return $this->belongsTo(Campus::class);
+        return $this->hasMany(Campus::class, 'institutions_id');
+    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($institution){
+            $institution->campus()->delete();
+        
+        });
     }
 }

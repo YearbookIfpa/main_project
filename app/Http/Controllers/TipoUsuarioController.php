@@ -37,7 +37,7 @@ class TipoUsuarioController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:users_type,name,except,id'
+            'name' => 'required|unique:users_type,name,except,id|string'
             // Adicione mais campos conforme necessário
         ]);
         $uppercaseName = strtoupper($request['name']);
@@ -71,7 +71,9 @@ class TipoUsuarioController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+        $userType  = UserType::findOrFail($id);
+        return response()->json($userType );
     }
 
     /**
@@ -83,7 +85,21 @@ class TipoUsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string'
+            // Adicione mais campos conforme necessário
+        ]);
+        $uppercaseName = strtoupper($request['name']);
+
+        $userType = UserType::findOrFail($id);
+        $userType->update(
+            [
+                'name' => $uppercaseName
+            ]
+        );
+
+        return response()->json(['success' => 'Tipo de usuário atualizado com sucesso']);;
+
     }
 
     /**
@@ -94,6 +110,22 @@ class TipoUsuarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $userType = UserType::find($id);
+        
+        
+        if($userType->delete()){
+            return response()->json(['success' => 'Tipo de usuário removido com sucesso!']);
+        }else{
+            return response()->json(['error' => $id]);
+        }
+    }
+    public function delete($id)
+    {
+        $userType = UserType::find($id);
+        if($userType->delete()){
+            return response()->json(['success' => 'Tipo de usuário removido com sucesso!']);
+        }else{
+            return response()->json(['error' => 'Erro na remoção!']);
+        }
     }
 }

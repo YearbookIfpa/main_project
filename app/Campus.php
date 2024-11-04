@@ -18,4 +18,14 @@ class Campus extends Model
     public function institution(){
         return $this->belongsTo(Institution::class);
     }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($campus){
+            $campus->users()->delete();
+        });
+    }
+
+    
 }

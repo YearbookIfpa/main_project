@@ -18,7 +18,17 @@ class City extends Model
     }
 
     public function institutions(){
-        return $this->hasMany(Institution::class);
+        return $this->hasMany(Institution::class, 'institutions_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($city){
+            $city->institutions()->delete();
+        
+        });
     }
 
 }

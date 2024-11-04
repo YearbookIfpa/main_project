@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('users_type_id');
-            $table->foreign('users_type_id')->references('id')->on('users_type');
+            $table->foreign('users_type_id')->references('id')->on('users_type')->onDelete('cascade');
             $table->boolean('status')->default(true);
         });
     }

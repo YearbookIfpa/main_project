@@ -16,6 +16,16 @@ class State extends Model
     ];
 
     public function cities(){
-        return $this->hasMany(City::class);
+        return $this->hasMany(City::class, 'states_id');
     }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($state){
+            $state->cities()->delete();
+        
+        });
+    }
+    
 }

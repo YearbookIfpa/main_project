@@ -144,9 +144,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     })->name('inicio');
     Route::get('/tipo_usuario', [TipoUsuarioController::class, 'index'])->name('tipo_usuario.index');
     Route::get('/tipo_usuario/{id}/show', [TipoUsuarioController::class, 'show'])->name('tipo_usuario.show');
-    Route::get('/tipo_usuario/{id}/edit', [TipoUsuarioController::class, 'edit'])->name('tipo_usuario.edit');
-    Route::get('/tipo_usuario/{id}/destroy', [TipoUsuarioController::class, 'destroy'])->name('tipo_usuario.destroy');
-    Route::post('/tipo_usuario/{id}/update', [TipoUsuarioController::class, 'update'])->name('tipo_usuario.update');
+    Route::get('/tipo_usuario/edit/{id}', [TipoUsuarioController::class, 'edit'])->name('tipo_usuario.edit');
+    Route::delete('/tipo_usuario/destroy/{id}', [TipoUsuarioController::class, 'destroy'])->name('tipo_usuario.destroy');
+    Route::get('/tipo_usuario/delete/{id}', [TipoUsuarioController::class, 'delete'])->name('tipo_usuario.delete');
+    Route::put('/tipo_usuario/update/{id}', [TipoUsuarioController::class, 'update'])->name('tipo_usuario.update');
     Route::post('/tipo_usuario/store', [TipoUsuarioController::class, 'store'])->name('tipo_usuario.store');
     Route::get('/usuario', [UserController::class, 'index'])->name('usuario.index');
 });

@@ -15,6 +15,15 @@ class UserType extends Model
 
     //UserType tem muitos Users
     public function users(){
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'users_type_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($userType){
+            $userType->users()->delete();
+        });
     }
 }

@@ -45,8 +45,8 @@ class User extends Authenticatable
     public function userType(){
         return $this->belongsTo(UserType::class);
     }
-    public function institution(){
-        return $this->belongsTo(Institution::class);
+    public function campus(){
+        return $this->belongsTo(Campus::class);
     }
 
     
